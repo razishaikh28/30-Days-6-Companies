@@ -1,3 +1,4 @@
+//Solution-1
 class Solution {
 public:
     string getHint(string secret, string guess) {
@@ -18,5 +19,30 @@ public:
             }  
         }
         return to_string(b) + "A" + to_string(c) +"B";
+    }
+};
+
+//Solution-2
+class Solution {
+public:
+    string getHint(string secret, string guess) {
+       int secretFre[10] = {0}; 
+       int guessFre[10] = {0};
+       int cows = 0, bulls = 0;
+       for(int i=0; i<secret.size(); i++){
+           if(secret[i] == guess[i]){
+               bulls++;
+           }
+           else{
+                //Conversion of string characters to integer
+                secretFre[secret[i] - '0']++;
+                guessFre[guess[i] - '0']++;
+           }
+       }
+       for(int i=0; i<10; i++){
+           // consider minimum value as it should match with the guess too
+           cows += min(secretFre[i],guessFre[i]);
+       }
+       return to_string(bulls) + "A" + to_string(cows) + "B";
     }
 };
